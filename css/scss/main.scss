@@ -1,0 +1,58 @@
+$font-stack: 'Open Sans', sans-serif;
+$font-size: 14px;
+
+*, *:before, *:after {
+  -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box; 
+  box-sizing: border-box;
+}
+body {
+    background: #fff;
+    font-family: $font-stack;
+    padding: 0;
+    margin: 0;
+    font-size: $font-size;
+}
+
+.wrapper {
+    font-size: 0;
+}  
+.expandContainer {
+    font-size: $font-size;
+}
+.imgBlock {
+    display: inline-block;
+    font-size: $font-size;
+
+    img.imgGridItem {
+        height: auto;
+        max-height: 200px;
+        display: block;
+        padding: 5px;
+    }
+} 
+.expandContainer {
+    background: #ddd;
+    padding: 2% 5%;
+}
+.cell {
+    display: table-cell;
+    vertical-align: top;
+    width: 50%;
+    padding: 1%;
+}
+.expTab {
+    display: table;
+    width: 100%;
+    
+    .expFigure {
+        @extend .cell;
+        
+        img {
+            max-width: 100%;
+        }
+    }
+    .expContent {
+        @extend .cell;
+    }
+}
