@@ -30,7 +30,6 @@ $(window).on('load resize', function () {
         $('.wrapper .expandContainer').slideUp(200, function () {
             $(this).remove();
         });
-        $block.removeClass('itemExpanded');
     }
     
     //prepare the data shown in the expandable area
@@ -48,9 +47,12 @@ $(window).on('load resize', function () {
     
     $($block).click(function(){
         collapse();
-
-        $(this).addClass('itemExpanded');
-        if ($(this).hasClass('itemExpanded')) {
+        
+        $block.not(this).removeClass('itemExpanded');
+        $(this).toggleClass('itemExpanded');
+        if (!$(this).hasClass('itemExpanded')) {
+            collapse();
+        } else {
             if ($(this).hasClass('lastElement')) {
                 $(this).after('<div class="expandContainer">' + pulldata($(this)) + '</div>');
                 $('.expandContainer').slideDown(300);
@@ -58,11 +60,10 @@ $(window).on('load resize', function () {
                 $(this).nextAll('.lastElement').first().after('<div class="expandContainer">' + pulldata($(this)) + '</div>');
                 $('.expandContainer').slideDown(300);
             }
-        } else {
-            collapse();   
         }
         
-        $('.expClose').click(function(){  
+        $('.expClose').click(function(){
+            $block.removeClass('itemExpanded');
             collapse();
         });
     }); 
