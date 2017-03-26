@@ -27,14 +27,19 @@ $(window).on('load resize', function () {
     }); 
     
     function collapse() {
-        $('.wrapper .expandContainer').remove();
+        $('.wrapper .expandContainer').slideUp(200, function () {
+            $(this).remove();
+        });
+        $block.removeClass('itemExpanded');
     }
     
+    //prepare the data shown in the expandable area
     function pulldata(el) {
         var dataTitle = el.data('title');
         var dataDesc = el.data('desc');
         var dataImg = el.find('img').attr('src');
         var dataInfo =  '<div class="expTab">' +
+                        '<a href="#" class="expClose"></a>' +
                         '<div class="expFigure"><img src="' + dataImg + '" /></div>' +
                         '<div class="expContent"><h3 class="expTitle">' + dataTitle + '</h3><div class="expDesc">' + dataDesc + '</div></div>' +
                         '</div>';
@@ -43,13 +48,26 @@ $(window).on('load resize', function () {
     
     $($block).click(function(){
         collapse();
-        if ($(this).hasClass('lastElement')) {
-            $(this).after('<div class="expandContainer"><div>' + pulldata($(this)) + '</div></div>');
+
+        $(this).addClass('itemExpanded');
+        if ($(this).hasClass('itemExpanded')) {
+            if ($(this).hasClass('lastElement')) {
+                $(this).after('<div class="expandContainer">' + pulldata($(this)) + '</div>');
+                $('.expandContainer').slideDown(300);
+            } else {
+                $(this).nextAll('.lastElement').first().after('<div class="expandContainer">' + pulldata($(this)) + '</div>');
+                $('.expandContainer').slideDown(300);
+            }
         } else {
-            //$(this).nextAll('.lastElement').first().after('<div class="expandContainer">' + $(this).data('title') + '</div>');
-            $(this).nextAll('.lastElement').first().after('<div class="expandContainer">' + pulldata($(this)) + '</div>');
-        } 
-    });                         
+            collapse();   
+        }
+        
+        $('.expClose').click(function(){  
+            collapse();
+        });
+    }); 
+    
+     
                                 
     
 });  

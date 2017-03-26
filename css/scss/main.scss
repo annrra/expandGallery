@@ -1,5 +1,6 @@
 $font-stack: 'Open Sans', sans-serif;
 $font-size: 14px;
+$bgcolor: #fff;
 
 *, *:before, *:after {
   -webkit-box-sizing: border-box; 
@@ -7,7 +8,7 @@ $font-size: 14px;
   box-sizing: border-box;
 }
 body {
-    background: #fff;
+    background: $bgcolor;
     font-family: $font-stack;
     padding: 0;
     margin: 0;
@@ -31,9 +32,44 @@ body {
         padding: 5px;
     }
 } 
+@mixin transition-all($sec) {
+    -webkit-transition: all $sec ease;                  
+    -moz-transition: all $sec ease;                 
+    -o-transition: all $sec ease;   
+    -ms-transition: all $sec ease;          
+    transition: all $sec ease;
+}
 .expandContainer {
+    display: none;
     background: #ddd;
     padding: 2% 5%;
+    position: relative;
+    
+    a.expClose {
+        display: inline-block;
+        text-decoration: none;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        opacity: 0.6;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        background: $bgcolor;
+        color: #000;
+        text-align: center;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        font-size: 0.9em;
+        @include transition-all(0.3s);
+    } 
+    a.expClose:hover {
+        opacity: 1;
+    }
+    a.expClose:before {
+        content: 'x';
+    }
 }
 .cell {
     display: table-cell;

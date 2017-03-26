@@ -33,8 +33,42 @@ body {
 }
 
 .expandContainer {
+  display: none;
   background: #ddd;
   padding: 2% 5%;
+  position: relative;
+}
+
+.expandContainer a.expClose {
+  display: inline-block;
+  text-decoration: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  opacity: 0.6;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  background: #fff;
+  color: #000;
+  text-align: center;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  font-size: 0.9em;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.expandContainer a.expClose:hover {
+  opacity: 1;
+}
+
+.expandContainer a.expClose:before {
+  content: 'x';
 }
 
 .cell, .expTab .expFigure, .expTab .expContent {
