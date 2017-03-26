@@ -1,30 +1,41 @@
 (function( $ ) {
 	
-$(window).on('load resize', function () {
+$(document).ready(function(){
     
     var $block = $('.wrapper .imgBlock');
     $block.removeClass('firstBlock lastBlock');
     $block.first().addClass('firstElement');
     $block.last().addClass('lastElement');
-                
-    $block.each(function () {
+    
+    //set first and last items in the grid on load and resize
+    var firstLast = function () {
+        $block.each(function () {
                       
-        var currentOffset = $(this).offset().top;
-        if($(this).next().length) {
-            var nextOffset = $(this).next().offset().top;
-        }
-        if($(this).prev().length) {
-            var prevOffset = $(this).prev().offset().top;
-        }
+            var currentOffset = $(this).offset().top;
+            if($(this).next().length) {
+                var nextOffset = $(this).next().offset().top;
+            }
+            if($(this).prev().length) {
+                var prevOffset = $(this).prev().offset().top;
+            }
+                 
+            if (currentOffset < nextOffset) {
+                $(this).addClass('lastElement');
+            }
+            if (currentOffset > prevOffset) {
+                $(this).addClass('firstElement');
+            }  
              
-        if (currentOffset < nextOffset) {
-            $(this).addClass('lastElement');
-        }
-        if (currentOffset > prevOffset) {
-            $(this).addClass('firstElement');
-        }  
-         
-    }); 
+        });
+    }; 
+    
+    $(document).ready(function () {
+        firstLast();
+    });
+    $(window).resize(function() {
+        firstLast();
+    });           
+     
     
     function collapse() {
         $('.wrapper .expandContainer').slideUp(200, function () {
@@ -32,7 +43,7 @@ $(window).on('load resize', function () {
         });
     }
     
-    //prepare the data shown in the expandable area
+    //prepare data for expandable area
     function pulldata(el) {
         var dataTitle = el.data('title');
         var dataDesc = el.data('desc');
@@ -67,12 +78,9 @@ $(window).on('load resize', function () {
             collapse();
         });
     }); 
-    
-     
                                 
     
 });  
-
 
 	
 })( jQuery );
