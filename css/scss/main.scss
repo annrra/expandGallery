@@ -1,6 +1,7 @@
 $font-stack: 'Open Sans', sans-serif;
 $font-size: 14px;
 $bgcolor: #fff;
+$expbgcolor: #ddd;
 
 *, *:before, *:after {
   -webkit-box-sizing: border-box; 
@@ -24,6 +25,7 @@ body {
 .imgBlock {
     display: inline-block;
     font-size: $font-size;
+    position: relative;
 
     img.imgGridItem {
         height: auto;
@@ -41,7 +43,7 @@ body {
 }
 .expandContainer {
     display: none;
-    background: #ddd;
+    background: $expbgcolor;
     padding: 2% 5%;
     position: relative;
     
@@ -91,4 +93,22 @@ body {
     .expContent {
         @extend .cell;
     }
+}
+.imgBlock > a {
+    display: block;
+}
+.imgBlock.itemExpanded > a::after {
+    content: " ";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 999;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 15px solid $expbgcolor;
 }

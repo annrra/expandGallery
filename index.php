@@ -7,8 +7,6 @@
 	<title>image grid</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/main.css" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script src="js/animate.js"></script>
 </head>
 
 <body>
@@ -68,6 +66,7 @@
     
 </div>
 
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="js/animate.js"></script>
 </body>
 </html>
