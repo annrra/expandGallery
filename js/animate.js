@@ -1,40 +1,46 @@
 (function( $ ) {
-	
-$(document).ready(function(){
+
     
     var $block = $('.wrapper .imgBlock');
-    $block.removeClass('firstBlock lastBlock');
+    $block.removeClass('firstElement lastElement');
     $block.first().addClass('firstElement');
     $block.last().addClass('lastElement');
     
-    //set first and last items in the grid on load and resize
-    var firstLast = function () {
-        $block.each(function () {
-                      
-            var currentOffset = $(this).offset().top;
-            if($(this).next().length) {
-                var nextOffset = $(this).next().offset().top;
-            }
-            if($(this).prev().length) {
-                var prevOffset = $(this).prev().offset().top;
-            }
-                 
-            if (currentOffset < nextOffset) {
-                $(this).addClass('lastElement');
-            }
-            if (currentOffset > prevOffset) {
-                $(this).addClass('firstElement');
-            }  
-             
-        });
-    }; 
     
-    $(document).ready(function () {
+    
+    //set first and last items in the grid on load and resize 
+    
+    $(document).ready(function() {
         firstLast();
+        $(window).resize(firstLast);
     });
-    $(window).resize(function() {
-        firstLast();
-    });           
+    var timeout;
+    function firstLast() {
+        if (timeout) {
+            window.clearTimeout(timeout);
+        }
+        timeout = setTimeout(function () {
+            $block.each(function() {
+                          
+                var currentOffset = $(this).offset().top;
+                if($(this).next().length) {
+                    var nextOffset = $(this).next().offset().top;
+                }
+                if($(this).prev().length) {
+                    var prevOffset = $(this).prev().offset().top;
+                }
+                     
+                if (currentOffset < nextOffset) {
+                    $(this).addClass('lastElement');
+                }
+                if (currentOffset > prevOffset) {
+                    $(this).addClass('firstElement');
+                }  
+                 
+            });
+        }, 100);
+    } 
+           
      
     
     function collapse() {
@@ -79,8 +85,6 @@ $(document).ready(function(){
         });
     }); 
                                 
-    
-});  
 
 	
 })( jQuery );
