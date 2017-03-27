@@ -11,7 +11,7 @@
 
 <body>
 
-<div class="wrapper">
+<div class="wrapGrid">
     
     <div class="imgBlock" data-title="Image 1" data-desc="Lorem ipsum dolor sit amet.">
         <a href="#" class="imgLink">
@@ -25,7 +25,7 @@
     </div>
     <div class="imgBlock" data-title="Image 3" data-desc="Lorem ipsum dolor sit amet.">
         <a href="#" class="imgLink">
-            <img class="imgGridItem" src="http://photocomma.com/wp-content/uploads/clock-933x1400.jpg" />
+            <img class="imgGridItem" src="http://photocomma.com/wp-content/uploads/run-500x333.jpg" />
         </a>
     </div>
     <div class="imgBlock" data-title="Image 4" data-desc="Lorem ipsum dolor sit amet.">

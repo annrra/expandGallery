@@ -14,13 +14,16 @@ body {
     padding: 0;
     margin: 0;
     font-size: $font-size;
+    overflow: scroll;
 }
 
-.wrapper {
+.wrapGrid {
     font-size: 0;
+    text-align: center;
 }  
 .expandContainer {
     font-size: $font-size;
+    text-align: left;
 }
 .imgBlock {
     display: inline-block;

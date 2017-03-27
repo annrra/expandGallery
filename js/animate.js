@@ -1,7 +1,19 @@
+/*
+* expandGallery
+*
+* author: Andrey Raychev
+* credits: http://bettermonday.org 
+* latest version and README available on Github:
+* https://github.com/jprifio/expandGallery
+*
+* License: GPL2
+*/
+
 (function( $ ) {
 
     
-    var $block = $('.wrapper .imgBlock');
+    var $block = $('.wrapGrid .imgBlock'),
+        $body = $( 'html, body' );
     $block.removeClass('firstElement lastElement');
     $block.first().addClass('firstElement');
     $block.last().addClass('lastElement');
@@ -44,7 +56,7 @@
      
     
     function collapse() {
-        $('.wrapper .expandContainer').slideUp(200, function () {
+        $('.wrapGrid .expandContainer').slideUp(200, function () {
             $(this).remove();
         });
     }
@@ -62,28 +74,43 @@
         return dataInfo;
     }
     
+    //find the last block on a row and add the info after it
+    function expandFindLast(el) {
+        if (el.hasClass('lastElement')) {
+            el.after( expand(el) );
+            $('.expandContainer').slideDown(300);
+        } else {
+            el.nextAll('.lastElement').first().after( expand(el) );
+            $('.expandContainer').slideDown(300);
+        }
+    }
+    
+    function expand(el) {
+        var expandContainer = '<div class="expandContainer">' + pulldata(el) + '</div>';
+        return expandContainer;
+    }
+    
     $($block).click(function(){
         collapse();
-        
         $block.not(this).removeClass('itemExpanded');
+        
         $(this).toggleClass('itemExpanded');
         if (!$(this).hasClass('itemExpanded')) {
             collapse();
         } else {
-            if ($(this).hasClass('lastElement')) {
-                $(this).after('<div class="expandContainer">' + pulldata($(this)) + '</div>');
-                $('.expandContainer').slideDown(300);
-            } else {
-                $(this).nextAll('.lastElement').first().after('<div class="expandContainer">' + pulldata($(this)) + '</div>');
-                $('.expandContainer').slideDown(300);
-            }
+            expandFindLast($(this));                       
         }
         
+        $body.animate( { scrollTop : $(this).offset().top }, 400 );
+        closeBtn();
+    }); 
+    
+    function closeBtn() {
         $('.expClose').click(function(){
             $block.removeClass('itemExpanded');
             collapse();
         });
-    }); 
+    }
                                 
 
 	
