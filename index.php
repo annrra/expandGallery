@@ -10,7 +10,6 @@
 </head>
 
 <body>
-<div class="wrapMe">
 <div class="wrapGrid">
     
     <div class="imgBlock" data-title="Image 1" data-desc="Lorem ipsum dolor sit amet.">
@@ -65,13 +64,12 @@
     </div>
     
 </div>
-</div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="js/jquery.expandgrid.js"></script>
+<script src="js/expandgrid.js"></script>
 <!-- <script src="js/animate.js"></script> -->
 <script type="text/javascript">
-    $(".wrapMe").expandGrid();
+    $(".wrapGrid").expandGrid();
 </script>
 </body>
 </html>
