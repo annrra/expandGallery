@@ -10,10 +10,12 @@
 */
 
 (function( $ ) {
-
+     
     
     var $block = $('.wrapGrid .imgBlock'),
+        $href = $('.wrapGrid .imgBlock > a'),
         $body = $( 'html, body' );
+        
     $block.removeClass('firstElement lastElement');
     $block.first().addClass('firstElement');
     $block.last().addClass('lastElement');
@@ -26,6 +28,7 @@
         firstLast();
         $(window).resize(firstLast);
     });
+    
     var timeout;
     function firstLast() {
         if (timeout) {
@@ -62,7 +65,7 @@
     }
     
     //prepare data for expandable area
-    function pulldata(el) {
+    function loaddata(el) {
         var dataTitle = el.data('title');
         var dataDesc = el.data('desc');
         var dataImg = el.find('img').attr('src');
@@ -86,24 +89,26 @@
     }
     
     function expand(el) {
-        var expandContainer = '<div class="expandContainer">' + pulldata(el) + '</div>';
+        var expandContainer = '<div class="expandContainer">' + loaddata(el) + '</div>';
         return expandContainer;
     }
     
-    $($block).click(function(){
-        collapse();
-        $block.not(this).removeClass('itemExpanded');
-        
-        $(this).toggleClass('itemExpanded');
-        if (!$(this).hasClass('itemExpanded')) {
+    function initExpand() {
+        $($block).click(function(){
             collapse();
-        } else {
-            expandFindLast($(this));                       
-        }
-        
-        $body.animate( { scrollTop : $(this).offset().top }, 400 );
-        closeBtn();
-    }); 
+            $block.not(this).removeClass('itemExpanded');
+            
+            $(this).toggleClass('itemExpanded');
+            if (!$(this).hasClass('itemExpanded')) {
+                collapse();
+            } else {
+                expandFindLast($(this));                       
+            }
+            
+            $body.animate( { scrollTop : $(this).offset().top }, 400 );
+            closeBtn();
+        });
+    }
     
     function closeBtn() {
         $('.expClose').click(function(){
@@ -111,7 +116,17 @@
             collapse();
         });
     }
+    
+    function hrefCancelClick() {
+        $href.click(function(event) {
+           event.preventDefault();
+        });
+    }
+    
+    $(document).ready(function() {
+        hrefCancelClick();
+        initExpand();
+    });
                                 
-
 	
 })( jQuery );
