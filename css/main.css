@@ -27,11 +27,11 @@ body {
   display: inline-block;
   font-size: 14px;
   position: relative;
+  cursor: pointer;
 }
 
 .imgBlock img.imgGridItem {
   height: auto;
-  max-height: 200px;
   display: block;
   padding: 5px;
 }
@@ -91,11 +91,11 @@ body {
   max-width: 100%;
 }
 
-.imgBlock > a {
+.imgBlock > span {
   display: block;
 }
 
-.imgBlock.itemExpanded > a::after {
+.imgBlock.itemExpanded > span::after {
   content: " ";
   position: absolute;
   bottom: 0;

@@ -11,29 +11,39 @@
 
 (function( $ ) {   
     
-    $.expandGrid = function(el) { 
+    $.expandGrid = function(element, options) { 
         
-        var base = this;
+        var defaults = {
 
-        // Access to jQuery and DOM versions of element
-        base.$el = $(el);
-        base.el = el;
+            $blockme: '.wrapGrid .imgBlock',
+            animationSpeedOpen: 300,
+            animationSpeedClose: 200,
+            imageGridMaxHeight: 200,
+
+        }
+        
+        var plugin = this;
+        
+        plugin.settings = {}
+        
+        var $element = $(element), 
+             element = element;    
+
         
         var $block = $('.wrapGrid .imgBlock'),
-            $href = $('.wrapGrid .imgBlock > a'),
+            $imgGrid = $('.imgGridItem'),
             $body = $( 'html, body' );
         
         $block.removeClass('firstElement lastElement');
         $block.first().addClass('firstElement');
         $block.last().addClass('lastElement');
         
-        // Add a reverse reference to the DOM object
-        base.$el.data("expandGrid", base);
         
         //set first and last items in the grid on load and resize 
         $(document).ready(function() {
             firstLast();
             $(window).resize(firstLast);
+            $imgGrid.css({'maxHeight': plugin.settings.imageGridMaxHeight + 'px'});
         });
         
         var timeout;
@@ -62,11 +72,33 @@
                 });
             }, 100);
         } 
-               
+        
+        plugin.init = function(){
+            
+            plugin.settings = $.extend({}, defaults, options);
+            
+            $block.click(function(){
+                collapse();
+                $block.not(this).removeClass('itemExpanded');
+                
+                $(this).toggleClass('itemExpanded');
+                if (!$(this).hasClass('itemExpanded')) {
+                    collapse();
+                } else {
+                    expandFindLast($(this));                       
+                }
+                
+                $body.animate( { scrollTop : $(this).offset().top }, 400 );
+                closeBtn();
+            });
+        };
+          
+          
+        /**********/       
          
         
         function collapse() {
-            $('.wrapGrid .expandContainer').slideUp(200, function () {
+            $('.wrapGrid .expandContainer').slideUp(plugin.settings.animationSpeedClose, function () {
                 $(this).remove();
             });
         }
@@ -88,10 +120,10 @@
         function expandFindLast(el) {
             if (el.hasClass('lastElement')) {
                 el.after( expand(el) );
-                $('.expandContainer').slideDown(300);
+                $('.expandContainer').slideDown(plugin.settings.animationSpeedOpen);
             } else {
                 el.nextAll('.lastElement').first().after( expand(el) );
-                $('.expandContainer').slideDown(300);
+                $('.expandContainer').slideDown(plugin.settings.animationSpeedOpen);
             }
         }
         
@@ -100,70 +132,30 @@
             return expandContainer;
         }
         
-        
-        base.init = function(){
-            $($block).click(function(){
-                collapse();
-                $block.not(this).removeClass('itemExpanded');
-                
-                $(this).toggleClass('itemExpanded');
-                if (!$(this).hasClass('itemExpanded')) {
-                    collapse();
-                } else {
-                    expandFindLast($(this));                       
-                }
-                
-                $body.animate( { scrollTop : $(this).offset().top }, 400 );
-                closeBtn();
-            });
-        };
-        /*
-        function init() {
-            $($block).click(function(){
-                collapse();
-                $block.not(this).removeClass('itemExpanded');
-                
-                $(this).toggleClass('itemExpanded');
-                if (!$(this).hasClass('itemExpanded')) {
-                    collapse();
-                } else {
-                    expandFindLast($(this));                       
-                }
-                
-                $body.animate( { scrollTop : $(this).offset().top }, 400 );
-                closeBtn();
-            });
-        }
-        */
-        
         function closeBtn() {
-            $('.expClose').click(function(){
+            $('.expClose').click(function(event){
+                event.preventDefault();
                 $block.removeClass('itemExpanded');
                 collapse();
             });
         }
-        /*
-        function hrefCancelClick() {
-            $href.click(function(event) {
-               event.preventDefault();
-            });
-        }
         
-        $(document).ready(function() {
-            hrefCancelClick();
-            init();
-        });*/
         
-        // Run initializer
-        base.init();
+        plugin.init();
         
     };    
-    
-    $.fn.expandGrid = function() {
-        return this.each(function(){
-            //(new $.expandGrid(this));
-            (new $.expandGrid(this));
+    // add the plugin to the jQuery.fn object
+    $.fn.expandGrid = function(options) {
+
+        return this.each(function() {
+
+            if (undefined == $(this).data('expandGrid')) {
+                var plugin = new $.expandGrid(this, options);
+                $(this).data('expandGrid', plugin);
+            }
+
         });
-    };
-	
+
+    }
+    
 })( jQuery );

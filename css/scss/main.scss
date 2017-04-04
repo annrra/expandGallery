@@ -29,10 +29,10 @@ body {
     display: inline-block;
     font-size: $font-size;
     position: relative;
+    cursor: pointer;
 
     img.imgGridItem {
         height: auto;
-        max-height: 200px;
         display: block;
         padding: 5px;
     }
@@ -97,10 +97,10 @@ body {
         @extend .cell;
     }
 }
-.imgBlock > a {
+.imgBlock > span {
     display: block;
 }
-.imgBlock.itemExpanded > a::after {
+.imgBlock.itemExpanded > span::after {
     content: " ";
     position: absolute;
     bottom: 0;
