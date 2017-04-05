@@ -19,11 +19,11 @@ A responsive gallery grid layout with drop-down expandable content
 	
 ### Call the plugin on 'wrapGrid' element.
 
-$(".wrapGrid").expandGrid();
+	$(".wrapGrid").expandGrid();
 
-// custom settings
-$(".wrapGrid").expandGrid({
-	animationSpeedOpen: 300, // Set animation slideDown speed 
-	animationSpeedClose: 200, // Set animation slideUp speed
-	imageGridMaxHeight: 200 // Set max-height for thumbnail images
-});
+	// custom settings
+	$(".wrapGrid").expandGrid({
+		animationSpeedOpen: 300, // Set animation slideDown speed 
+		animationSpeedClose: 200, // Set animation slideUp speed
+		imageGridMaxHeight: 200 // Set max-height for thumbnail images
+	});
