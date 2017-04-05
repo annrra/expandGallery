@@ -14,12 +14,9 @@
     $.expandGrid = function(element, options) { 
         
         var defaults = {
-
-            $blockme: '.wrapGrid .imgBlock',
             animationSpeedOpen: 300,
             animationSpeedClose: 200,
-            imageGridMaxHeight: 200,
-
+            imageGridMaxHeight: 200
         }
         
         var plugin = this;
