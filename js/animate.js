@@ -4,7 +4,7 @@
 * author: Andrey Raychev
 * credits: http://bettermonday.org 
 * latest version and README available on Github:
-* https://github.com/jprifio/expandGallery
+* https://github.com/annrra/expandGallery
 *
 * License: GPL2
 */

@@ -16,15 +16,20 @@
         var defaults = {
             animationSpeedOpen: 300,
             animationSpeedClose: 200,
-            imageGridMaxHeight: 200
+            imageGridMaxHeight: 200,
         }
         
         var plugin = this;
         
+        // this will hold the merged default, and user-provided options
+        // plugin's properties will be available through this object like:
+        // plugin.settings.propertyName from inside the plugin or
+        // element.data('pluginName').settings.propertyName from outside the plugin, 
+        // where "element" is the element the plugin is attached to;
         plugin.settings = {}
         
-        var $element = $(element), 
-             element = element;    
+        var $element = $(element), // reference to the jQuery version of DOM element
+             element = element;    // reference to the actual DOM element
 
         
         var $block = $('.wrapGrid .imgBlock'),
@@ -138,17 +143,31 @@
         }
         
         
+        // fire up the plugin!
+        // call the "constructor" method
         plugin.init();
         
     };    
     // add the plugin to the jQuery.fn object
     $.fn.expandGrid = function(options) {
 
+        // iterate through the DOM elements we are attaching the plugin to
         return this.each(function() {
 
+            // if plugin has not already been attached to the element
             if (undefined == $(this).data('expandGrid')) {
+
+                // create a new instance of the plugin
+                // pass the DOM element and the user-provided options as arguments
                 var plugin = new $.expandGrid(this, options);
+
+                // in the jQuery version of the element
+                // store a reference to the plugin object
+                // you can later access the plugin and its methods and properties like
+                // element.data('pluginName').publicMethod(arg1, arg2, ... argn) or
+                // element.data('pluginName').settings.propertyName
                 $(this).data('expandGrid', plugin);
+
             }
 
         });

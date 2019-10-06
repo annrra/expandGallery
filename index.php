@@ -49,7 +49,6 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="js/jquery.expandgrid.js"></script>
-<!-- <script src="js/animate.js"></script> -->
 <script type="text/javascript">
     $(".wrapGrid").expandGrid({
       animationSpeedOpen: 300,
